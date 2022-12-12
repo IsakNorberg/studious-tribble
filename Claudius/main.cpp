@@ -5,18 +5,20 @@
 #include "Sprite.h"
 #include "Transform.h"
 #include "Image.h"
-
+#include "Window.h"
+#include <string_view>
 #undef main
 
 int main()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow("Base", 0, 0, 0, 0, SDL_WindowFlags::SDL_WINDOW_RESIZABLE);
-	if (window == nullptr)
+	//SDL_Window* window = SDL_CreateWindow("Base", 0, 0, 0, 0, SDL_WindowFlags::SDL_WINDOW_RESIZABLE);
+	window gameWindow;
+	/*if (window == nullptr)
 	{
 		const char* error = SDL_GetError();
 		return 0;
-	}
+	}*/
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
 	if (renderer == nullptr)
 	{
@@ -32,11 +34,11 @@ int main()
 
 	int width = 500;
 	int height = 500;
-	std::string title = "";
+	std::string_view title = "snake";
 	game.Enter(width, height, title);
-	SDL_SetWindowSize(window, width, height);
-	SDL_SetWindowTitle(window, title.c_str());
-	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	gameWindow.set_size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	gameWindow.set_titel(title);
+	gameWindow.center();
 	
 	float dt = 1.0f / 60.0f;
 	while (running)
@@ -94,7 +96,7 @@ int main()
 	}
 
 	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	//SDL_DestroyWindow(window);
 
 	return 0;
 }
