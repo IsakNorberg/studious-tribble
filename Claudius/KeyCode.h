@@ -1,4 +1,5 @@
 #pragma once
+#include "SDL.h"
 
 enum class KeyCode
 {
@@ -7,3 +8,4 @@ enum class KeyCode
 	LEFT_ARROW,RIGHT_ARROW,UP_ARROW,DOWN_ARROW,
 	INVALID
 };
+KeyCode TranslateKeyCode(SDL_Keycode code);
