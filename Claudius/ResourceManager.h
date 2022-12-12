@@ -1,10 +1,10 @@
 #pragma once
-
+#include "RecourceImpel.h"
 #include <string>
 
 struct Image;
 struct Sound;
-struct ResourceImpl;
+//struct ResourceImpl;
 
 struct ResourceManager
 {
