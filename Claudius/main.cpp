@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "Image.h"
 #include "Window.h"
+#include "Renderer.h"
 #include <string_view>
 #undef main
 
@@ -13,32 +14,15 @@ int main()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	//SDL_Window* window = SDL_CreateWindow("Base", 0, 0, 0, 0, SDL_WindowFlags::SDL_WINDOW_RESIZABLE);
-	window gameWindow;
-	/*if (window == nullptr)
-	{
-		const char* error = SDL_GetError();
-		return 0;
-	}*/
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
-	if (renderer == nullptr)
-	{
-		const char* error = SDL_GetError();
-		return 0;
-	}
+	Window gameWindow("Snake");
+	Renderer renderer(gameWindow);
+	
 	bool running = true;
 	
 	RenderManager renderManager;
 	ResourceImpl resourceImpl(renderer);
 	ResourceManager resourceManager(resourceImpl);
 	Game game(resourceManager);
-
-	int width = 500;
-	int height = 500;
-	std::string_view title = "snake";
-	game.Enter(width, height, title);
-	gameWindow.set_size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	gameWindow.set_titel(title);
-	gameWindow.center();
 	
 	float dt = 1.0f / 60.0f;
 	while (running)

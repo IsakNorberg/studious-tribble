@@ -1,26 +1,30 @@
 #include "Window.h"
 
-void window::center() noexcept
+void Window::center_window() noexcept
 {
-	SDL_SetWindowPosition(_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	SDL_SetWindowPosition(_window.get(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 }
 
-void window::set_size(int width, int height)
+void Window::set_size(int width, int height)
 {
-	SDL_SetWindowSize(_window, width, height);
+	SDL_SetWindowSize(_window.get(), width, height);
 }
 
-void window::set_titel(std::string_view title)
+
+Window::Window(std::string_view title): _window()
 {
-	SDL_SetWindowTitle(_window, title.data());
+	SDL_Window* ptr = SDL_CreateWindow(title.data(), 0, 0, 0, 0, 0);
+	if (ptr == nullptr)
+	{
+		throw std::runtime_error(SDL_GetError());
+	}
+	_window = std::unique_ptr< SDL_Window, SDL_Deleter>(ptr);
+
+	set_size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	center_window();
 }
 
-window::window()
+SDL_Window* Window::getWindow() const noexcept
 {
-	_window = SDL_CreateWindow("Base", 0, 0, 0, 0, SDL_WindowFlags::SDL_WINDOW_RESIZABLE);
-}
-
-window::~window()
-{
-	SDL_DestroyWindow(_window);
+	return _window.get();
 }

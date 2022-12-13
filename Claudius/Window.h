@@ -1,24 +1,18 @@
 #pragma once
-#include "SDL.h"
+#include "Deleter.h"
 #include <memory>
 #include <string_view>
+#include <stdexcept>
 
-constexpr int DEFAULT_WIDTH = 500;
-constexpr int DEFAULT_HEIGHT = 500;
+constexpr int DEFAULT_WIDTH = 1250;
+constexpr int DEFAULT_HEIGHT = 700;
 
-class window
+class Window
 {
-	SDL_Window* _window;
+	std::unique_ptr<SDL_Window, SDL_Deleter> _window;
+	void center_window() noexcept;
 public:
-	void center() noexcept;
 	void set_size(int width, int height);
-	void set_titel(std::string_view title);
-	window();
-	window(const window& w) = delete;
-	window(const window&& w) = delete;
-	window operator=(window&& rhs) = delete;
-	window operator=(window& rhs) = delete;
-		
-	~window();
-
+	Window(std::string_view title);
+	SDL_Window* getWindow() const noexcept;
 };
