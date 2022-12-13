@@ -1,6 +1,5 @@
 ﻿#include "SDL.h"
 #include "RenderManager.h"
-#include "ResourceManager.h"
 #include "Game.h"
 #include "Sprite.h"
 #include "Transform.h"
@@ -12,17 +11,13 @@
 
 int main()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
-	//SDL_Window* window = SDL_CreateWindow("Base", 0, 0, 0, 0, SDL_WindowFlags::SDL_WINDOW_RESIZABLE);
+	//SDL_Init(SDL_INIT_EVERYTHING);
 	Window gameWindow("Snake");
 	Renderer renderer(gameWindow);
 	
 	bool running = true;
-	
 	RenderManager renderManager;
-	ResourceImpl resourceImpl(renderer._renderer.get());
-	ResourceManager resourceManager(resourceImpl);
-	Game game(resourceManager);
+	Game game;
 	
 	float dt = 1.0f / 60.0f;
 	while (running)
@@ -37,7 +32,7 @@ int main()
 			}
 		}
 
-		game.Update(dt);
+		game.Update();
 		game.Render(renderManager);
 
 		renderer.present();

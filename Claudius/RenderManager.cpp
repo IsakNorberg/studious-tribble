@@ -9,7 +9,6 @@ struct RenderImpl
 
 void RenderManager::Render(const Sprite& sprite, const Transform& trans)
 {
-	spriteEntries.push_back({ sprite, trans });
 }
 
 void RenderManager::Render(const Rectangle& rect, const Color& color, const Transform& trans)
@@ -19,6 +18,5 @@ void RenderManager::Render(const Rectangle& rect, const Color& color, const Tran
 
 void RenderManager::Clear()
 {
-	spriteEntries.clear();
 	rectEntries.clear();
 }
