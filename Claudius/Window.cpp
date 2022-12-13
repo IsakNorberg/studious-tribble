@@ -1,11 +1,11 @@
 #include "Window.h"
 
-void Window::center_window() noexcept
+void Window::center_window() const noexcept
 {
 	SDL_SetWindowPosition(_window.get(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 }
 
-void Window::set_size(int width, int height)
+void Window::set_size(int width, int height) const noexcept
 {
 	SDL_SetWindowSize(_window.get(), width, height);
 }

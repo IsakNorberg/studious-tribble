@@ -9,3 +9,14 @@ Renderer::Renderer(const Window& window)
 	}
 	_renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(ptr);
 }
+
+void Renderer::clear() const noexcept
+{
+	SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 0);
+	SDL_RenderClear(_renderer.get());
+}
+
+void Renderer::present() const noexcept
+{
+	SDL_RenderPresent(_renderer.get());
+}
