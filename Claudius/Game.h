@@ -16,12 +16,11 @@
 #include <string_view>
 
 struct RenderManager;
-struct ResourceManager;
 
 class Game
 {
-	Window _gameWindow;
-	Renderer _renderer;
+	/*Window _gameWindow;
+	Renderer _renderer;*/
 
 	RenderManager renderManager;
 	Player playerOne;

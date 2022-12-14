@@ -18,24 +18,24 @@ void Game::run()
 
 		Update();
 		Render(renderManager);
+		renderManager.render_buffer();
+		//_renderer.present();
+		//_renderer.clear();
+		//for (auto&& entry : renderManager.rect_buffer)
+		//{
+		//	SDL_SetRenderDrawColor(_renderer._renderer.get(), entry.color.r, entry.color.g, entry.color.b, entry.color.a);
+		//	SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
+		//				   static_cast<int>(entry.trans.position.y),
+		//				   entry.rect.w,
+		//				   entry.rect.h };
+		//	SDL_RenderFillRect(_renderer._renderer.get(), &rect);  // <- If you want to draw a "filled" rectangle. 
+		//}
 
-		_renderer.present();
-		_renderer.clear();
-		for (auto&& entry : renderManager.rectEntries)
-		{
-			SDL_SetRenderDrawColor(_renderer._renderer.get(), entry.color.r, entry.color.g, entry.color.b, entry.color.a);
-			SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
-						   static_cast<int>(entry.trans.position.y),
-						   entry.rect.w,
-						   entry.rect.h };
-			SDL_RenderFillRect(_renderer._renderer.get(), &rect);  // <- If you want to draw a "filled" rectangle. 
-		}
-
-		renderManager.Clear();
+		renderManager.clear_render_buffer();
 		SDL_Delay(1000 / 20); //<- "Framerate".
 	}
 }
-Game::Game() : _gameWindow("Snake"), _renderer(_gameWindow)
+Game::Game()
 {
 	//SDL_Init(SDL_INIT_EVERYTHING);
 

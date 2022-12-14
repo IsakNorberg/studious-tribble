@@ -1,24 +1,29 @@
 #pragma once
-
+#include "Window.h"
+#include "Renderer.h"
+#include <algorithm>
+#include <ranges>
 #include <vector>
+#include "Color.h"
+#include "Transform.h"
+#include "Rectangle.h"
 
-struct Sprite;
-struct Transform;
-struct Rectangle;
-struct Color;
 
 struct RenderManager
 {
+	void clear_render_buffer() noexcept;
+	RenderManager();
+	Window _window;
+	Renderer _renderer;
 	struct RectEntry
 	{
 		const Rectangle& rect;
 		const Color& color;
 		const Transform& trans;
 	};
-
-
-	void Render(const Sprite& sprite, const Transform& trans);
-	void Render(const Rectangle& rect, const Color& color, const Transform& trans);
-	void Clear();
-	std::vector<RectEntry> rectEntries;
+	void render_buffer() noexcept;
+	void add_to_render_buffer(const Rectangle& rect, const Color& color, const Transform& trans);
+	
+private:
+	std::vector<RectEntry> rect_buffer;
 };

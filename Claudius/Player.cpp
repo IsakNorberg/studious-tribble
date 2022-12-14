@@ -20,11 +20,11 @@ void Player::Initialize()
 
 void Player::Render(RenderManager& renderManager)
 {
-	renderManager.Render(rect, color, trans);
+	renderManager.add_to_render_buffer(rect, color, trans);
 
 	for (int i = 0; i < player_score; i++)
 	{
-		renderManager.Render(parts[i].rect, parts[i].color, parts[i].trans);
+		renderManager.add_to_render_buffer(parts[i].rect, parts[i].color, parts[i].trans);
 	}
 }
 

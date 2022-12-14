@@ -22,7 +22,7 @@ void Apple::Initialize(unsigned int width, unsigned int height)
 
 void Apple::Render(RenderManager& renderManager)
 {
-	renderManager.Render(rect, color, trans);
+	renderManager.add_to_render_buffer(rect, color, trans);
 }
 
 
