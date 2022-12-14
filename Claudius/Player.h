@@ -1,4 +1,4 @@
-#pragma once		// #pragma once == Compile this file once.
+#pragma once		
 
 #include "Transform.h"
 #include "Color.h"
@@ -16,7 +16,7 @@ struct Player
 		Rectangle rect;
 	};
 
-	//Static == belongs to the class, not the object of the class.
+	
 	static const int player_size = 50;
 	PlayerPart parts[player_size];
 	
@@ -25,7 +25,7 @@ struct Player
 	Rectangle rect;
 	void OnKeyDown(KeyCode key);
 	void Initialize();
-	void Render(RenderManager& renderManager);				// A reference or pointer doesn't need to be #include, just a forward declare.
+	void Render(RenderManager& renderManager);				
 	void Update();
 	void ResetPlayer();
 
