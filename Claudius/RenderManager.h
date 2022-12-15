@@ -9,10 +9,10 @@
 #include "Rectangle.h"
 
 
-struct RenderManager
+class RenderManager
 {
-	void clear_render_buffer() noexcept;
-	RenderManager();
+	
+	
 	Window _window;
 	Renderer _renderer;
 	struct RectEntry
@@ -21,6 +21,9 @@ struct RenderManager
 		const Color& color;
 		const Transform& trans;
 	};
+public:
+	RenderManager();
+	void clear_render_buffer() noexcept;
 	void render_buffer() noexcept;
 	void add_to_render_buffer(const Rectangle& rect, const Color& color, const Transform& trans);
 	

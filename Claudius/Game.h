@@ -19,8 +19,6 @@ struct RenderManager;
 
 class Game
 {
-	/*Window _gameWindow;
-	Renderer _renderer;*/
 
 	RenderManager renderManager;
 	Player playerOne;
