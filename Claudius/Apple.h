@@ -1,10 +1,8 @@
 #pragma once
 
 #include "KeyCode.h"
-#include "Rectangle.h"
-#include "Color.h"
-#include "Transform.h"
 #include "RenderManager.h"
+#include "Vector2.h"
 
 class Apple
 {

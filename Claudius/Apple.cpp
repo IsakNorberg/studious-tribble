@@ -19,7 +19,7 @@ void Apple::Render(RenderManager& renderManager)
 
 Vector2 Apple::get_position()
 {
-	return { static_cast<float>(rect.x), static_cast<float>(rect.y) };
+	return { rect.x, rect.y };
 }
 
 void Apple::set_position(Vector2 position)

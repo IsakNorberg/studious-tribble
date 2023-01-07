@@ -4,9 +4,6 @@
 #include <algorithm>
 #include <ranges>
 #include <vector>
-#include "Color.h"
-#include "Transform.h"
-#include "Rectangle.h"
 #include <string_view>
 
 constexpr std::string_view name = "Snake";

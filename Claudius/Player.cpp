@@ -6,25 +6,23 @@
 void Player::Initialize()
 {
 	color = { 0,255,0,0 };
-	rect = { 0, 0, size, size };
-	trans.SetPosition(starting_x, starting_y);
+	rect = { starting_x, starting_y, static_cast<int>(size), static_cast<int>(size) };
 	player_score = 0;
 
 	for (int i = 0; i < player_size; i++)
 	{
-		parts[i].color = { 255, 0, 0, 0 };
-		parts[i].rect = { 0, 0, size, size };
-		parts[i].trans.SetPosition(trans.GetX(), trans.GetY());
+		parts[i].color = color;
+		parts[i].rect = rect;
 	}
 }
 
 void Player::Render(RenderManager& renderManager)
 {
-	renderManager.add_to_render_buffer(rect, color, trans);
+	renderManager.add_to_render_buffer(rect, color);
 
 	for (int i = 0; i < player_score; i++)
 	{
-		renderManager.add_to_render_buffer(parts[i].rect, parts[i].color, parts[i].trans);
+		renderManager.add_to_render_buffer(parts[i].rect, parts[i].color);
 	}
 }
 
@@ -121,5 +119,27 @@ void Player::ResetPlayer()
 	moving_up = false;
 	moving_down = false;
 
-	trans.SetPosition(starting_x, starting_y);
+	set_position({ starting_x, starting_y });
+}
+
+Vector2 Player::get_position()
+{
+	return {rect.x, rect.y};
+}
+
+void Player::set_position(Vector2 position)
+{
+	rect.x = position.x;
+	rect.y = position.y;
+}
+
+Vector2 Player::PlayerPart::get_position()
+{
+	return { rect.x, rect.y };
+}
+
+void Player::PlayerPart::set_position(Vector2 position)
+{
+	rect.x = position.x;
+	rect.y = position.y;
 }
