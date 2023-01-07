@@ -26,7 +26,7 @@ void Game::run()
 }
 Game::Game()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
+	
 
 
 	playerOne.Initialize();

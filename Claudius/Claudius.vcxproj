@@ -166,17 +166,12 @@
     <ClInclude Include="Apple.h" />
     <ClInclude Include="Deleter.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Collider.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="Image.h" />
     <ClInclude Include="KeyCode.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
