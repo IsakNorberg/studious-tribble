@@ -8,10 +8,8 @@
 
 class Apple
 {
-	SDL_Rect sdl_rect;
-
-	Rectangle rect;
-	Color color;
+	SDL_Rect rect;
+	SDL_Color color;
 
 public:
 	Apple(unsigned int width, unsigned int height);

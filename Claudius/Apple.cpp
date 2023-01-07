@@ -8,25 +8,24 @@
 Apple::Apple(unsigned int width, unsigned int height)
 {
 	color = { 0, 255, 0, 0 };
-	sdl_rect = { 100, 200, static_cast<int>(width), static_cast<int>(height) };
+	rect = { 100, 200, static_cast<int>(width), static_cast<int>(height) };
 }
 
 
 void Apple::Render(RenderManager& renderManager)
 {
-	//taca a color and a sdl rect
-	renderManager.add_to_render_buffer(SDL_Rect rect);
+	renderManager.add_to_render_buffer(rect, color);
 }
 
 Vector2 Apple::get_position()
 {
-	return { static_cast<float>(sdl_rect.x), static_cast<float>(sdl_rect.y) };
+	return { static_cast<float>(rect.x), static_cast<float>(rect.y) };
 }
 
 void Apple::set_position(Vector2 position)
 {
-	sdl_rect.x = position.x;
-	sdl_rect.y = position.y;
+	rect.x = position.x;
+	rect.y = position.y;
 }
 
 

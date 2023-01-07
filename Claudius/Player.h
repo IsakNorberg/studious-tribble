@@ -12,18 +12,16 @@ struct Player
 {
 	struct PlayerPart
 	{
-		Transform trans;
-		Color color;
-		Rectangle rect;
+		SDL_Rect rect;
+		SDL_Color color;
 	};
 
 	
 	static const int player_size = 50;
 	PlayerPart parts[player_size];
 	
-	Transform trans;
-	Color color;
-	Rectangle rect;
+	SDL_Rect rect;
+	SDL_Color color;
 	void OnKeyDown(KeyCode key);
 	void Initialize();
 	void Render(RenderManager& renderManager);				
