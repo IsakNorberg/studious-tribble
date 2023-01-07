@@ -15,12 +15,18 @@ Apple::Apple(unsigned int width, unsigned int height)
 void Apple::Render(RenderManager& renderManager)
 {
 	//taca a color and a sdl rect
-	renderManager.add_to_render_buffer(rect, color, trans);
+	renderManager.add_to_render_buffer(SDL_Rect rect);
 }
 
 Vector2 Apple::get_position()
 {
-	return { sdl_rect.x, sdl_rect.y };
+	return { static_cast<float>(sdl_rect.x), static_cast<float>(sdl_rect.y) };
+}
+
+void Apple::set_position(Vector2 position)
+{
+	sdl_rect.x = position.x;
+	sdl_rect.y = position.y;
 }
 
 

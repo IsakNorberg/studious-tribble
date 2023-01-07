@@ -3,7 +3,7 @@
 struct Vector2
 {
 	float x {0}; 
-	float y {0};
+	float y{ 0 };
 
 	Vector2& operator=(const Vector2& rhs);				 
 	Vector2 operator+(const Vector2& rhs) const;		 

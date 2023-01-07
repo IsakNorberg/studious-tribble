@@ -19,7 +19,7 @@ class RenderManager
 public:
 	RenderManager();
 	void render_buffer() noexcept;
-	void add_to_render_buffer(const Rectangle& rect, const Color& color, const Transform& trans);
+	void add_to_render_buffer(SDL_Rect rect);
 	
 private:
 
