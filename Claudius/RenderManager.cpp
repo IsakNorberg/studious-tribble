@@ -14,6 +14,5 @@ void RenderManager::render_buffer() noexcept
 void RenderManager::add_to_render_buffer(SDL_Rect rect, SDL_Color color)
 {
 	SDL_SetRenderDrawColor(_renderer.get_render_pointer(), color.r, color.g, color.b, color.a);
-	SDL_Rect årect{ static_cast<int>(trans.position.x), static_cast<int>(trans.position.y),rect.w, rect.h };
-	SDL_RenderFillRect(_renderer.get_render_pointer(), &årect);
+	SDL_RenderFillRect(_renderer.get_render_pointer(), &rect);
 }
