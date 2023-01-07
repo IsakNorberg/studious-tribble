@@ -20,7 +20,7 @@ void Game::run()
 		Render(renderManager);
 		renderManager.render_buffer();
 
-		renderManager.clear_render_buffer();
+
 		SDL_Delay(1000 / 20); //<- "Framerate".
 	}
 }

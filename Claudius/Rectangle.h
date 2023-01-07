@@ -2,8 +2,8 @@
 
 struct Rectangle
 {
-	int x{0}; 
-	int y{0};
-	int w{0}; 
-	int h{0};
+	unsigned int x{0}; 
+	unsigned int y{0};
+	unsigned int w{0};
+	unsigned int h{0};
 };

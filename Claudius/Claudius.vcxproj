@@ -153,6 +153,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +167,8 @@
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

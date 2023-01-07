@@ -15,7 +15,7 @@
 #include "RenderManager.h"
 #include <string_view>
 
-struct RenderManager;
+
 
 class Game
 {

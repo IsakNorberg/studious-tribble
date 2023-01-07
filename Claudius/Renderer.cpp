@@ -1,5 +1,10 @@
 #include "Renderer.h"
 
+SDL_Renderer* Renderer::get_render_pointer()
+{
+	return _renderer.get();
+}
+
 Renderer::Renderer(const Window& window)
 {
 	SDL_Renderer* ptr = SDL_CreateRenderer(window.getWindow(), -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);

@@ -29,7 +29,7 @@ struct Player
 	void Update();
 	void ResetPlayer();
 
-	int size = 10;
+	unsigned int size = 10;
 	const float movement_speed = 10.0f;
 	const float starting_x = 300.0f;
 	const float starting_y = 300.0f;
