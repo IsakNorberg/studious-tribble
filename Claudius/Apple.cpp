@@ -4,22 +4,23 @@
 #include "Apple.h"
 #include "RenderManager.h"
 
-//Constructor.
-Apple::Apple()
-{
-	
-}
 
-void Apple::Initialize(unsigned int width, unsigned int height)
+Apple::Apple(unsigned int width, unsigned int height)
 {
 	color = { 0, 255, 0, 0 };
-	rect = { 0, 0, width, height };
-	trans.SetPosition(100, 200);
+	sdl_rect = { 100, 200, static_cast<int>(width), static_cast<int>(height) };
 }
+
 
 void Apple::Render(RenderManager& renderManager)
 {
+	//taca a color and a sdl rect
 	renderManager.add_to_render_buffer(rect, color, trans);
+}
+
+Vector2 Apple::get_position()
+{
+	return { sdl_rect.x, sdl_rect.y };
 }
 
 

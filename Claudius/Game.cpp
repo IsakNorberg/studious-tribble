@@ -26,11 +26,7 @@ void Game::run()
 }
 Game::Game()
 {
-	
-
-
 	playerOne.Initialize();
-	apple.Initialize(10, 10);
 }
 
 Game::~Game()
@@ -41,7 +37,6 @@ Game::~Game()
 void Game::Update()
 {
 	
-
 	playerOne.Update();
 
 	// Player colliding on theirself.
@@ -66,10 +61,10 @@ void Game::Update()
 	}
 
 	// Player collide on apple.
-	if (playerOne.trans.GetPosition() == apple.trans.GetPosition())
+	if (playerOne.trans.GetPosition() == apple.get_position())
 	{
 		playerOne.player_score++;
-		apple.trans.SetPosition((rand() % 125) * 10.0f, (rand() % 70) * 10.0f);
+		apple.set_position({ (rand() % 125) * 10.0f, (rand() % 70) * 10.0f });
 	}
 }
 

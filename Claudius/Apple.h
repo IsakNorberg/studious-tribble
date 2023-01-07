@@ -4,19 +4,21 @@
 #include "Rectangle.h"
 #include "Color.h"
 #include "Transform.h"
+#include "RenderManager.h"
 
-struct RenderManager; //<- Kinda like #include "RenderManager.h", not exactly. Can't use functions. Google forward declaration.
-
-struct Apple
+class Apple
 {
-
-	Apple();
-	void Render(RenderManager& renderManager);
-	void Initialize(unsigned int width, unsigned int height);
+	SDL_Rect sdl_rect;
 
 	Rectangle rect;
 	Color color;
-	Transform trans;
 
-	bool new_apple = false;
+public:
+	Apple(unsigned int width, unsigned int height);
+	void Render(RenderManager& renderManager);
+	Vector2 get_position();
+	void set_position(Vector2 position);
+
+
+	bool new_apple{ false };
 };

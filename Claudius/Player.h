@@ -1,11 +1,12 @@
 #pragma once		
 
+#include "RenderManager.h"
 #include "Transform.h"
 #include "Color.h"
 #include "Rectangle.h"
 #include "KeyCode.h"
 
-struct RenderManager;
+
 
 struct Player
 {

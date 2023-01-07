@@ -1,7 +1,7 @@
 #include "SDL.h"
 #include "RenderManager.h"
 
-RenderManager::RenderManager(): _window("Snake"), _renderer(_window)
+RenderManager::RenderManager(): _window(name), _renderer(_window)
 {
 }
 
