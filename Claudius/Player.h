@@ -11,8 +11,7 @@ struct Player
 	{
 		Vector2 get_position();
 		void set_position(Vector2 position);
-
-	private:
+		void change_position(int x, int y); // remove
 		SDL_Rect rect;
 		SDL_Color color;
 	};
@@ -31,6 +30,7 @@ struct Player
 
 	Vector2 get_position();
 	void set_position(Vector2 position);
+	void change_position(int x, int y);
 
 	unsigned int size = 10;
 	const float movement_speed = 10.0f; // const exper

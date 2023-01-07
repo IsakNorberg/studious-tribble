@@ -28,53 +28,53 @@ void Player::Render(RenderManager& renderManager)
 
 void Player::Update()
 {
-	x_array_difference[0] = trans.GetX() - parts[0].trans.GetX();
-	y_array_difference[0] = trans.GetY() - parts[0].trans.GetY();
+	x_array_difference[0] = get_position().x - parts[0].get_position().x;
+	y_array_difference[0] = get_position().y - parts[0].get_position().y;
 
 	for (int i = 1; i < (player_size - 1); i++)
 	{
-			x_array_difference[i] = parts[i].trans.GetX() - parts[i + 1].trans.GetX();
-			y_array_difference[i] = parts[i].trans.GetY() - parts[i + 1].trans.GetY();
+			x_array_difference[i] = parts[i].get_position().x - parts[i + 1].get_position().x;
+			y_array_difference[i] = parts[i].get_position().y - parts[i + 1].get_position().y;
 	}
 
 	if (moving_left == true)
 	{
-		trans.ChangePosition(-movement_speed, 0);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		change_position(-movement_speed, 0);
+		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
 		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
+			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
 		}
 	}
 	else if (moving_right == true)
 	{
-		trans.ChangePosition(movement_speed, 0);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		change_position(movement_speed, 0);
+		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
 		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
+			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
 		}
 	}
 	else if (moving_up == true)
 	{
-		trans.ChangePosition(0, -movement_speed);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		change_position(0, -movement_speed);
+		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
 		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
+			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
 		}
 	}
 	else if (moving_down == true)
 	{
-		trans.ChangePosition(0, movement_speed);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		change_position(0, movement_speed);
+		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
 		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
+			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
 		}
 	}
 }
@@ -133,6 +133,13 @@ void Player::set_position(Vector2 position)
 	rect.y = position.y;
 }
 
+void Player::change_position(int x, int y)
+{
+	Vector2 OutVector = { x,y };
+	OutVector = OutVector + get_position();
+	set_position(OutVector);
+}
+
 Vector2 Player::PlayerPart::get_position()
 {
 	return { rect.x, rect.y };
@@ -142,4 +149,11 @@ void Player::PlayerPart::set_position(Vector2 position)
 {
 	rect.x = position.x;
 	rect.y = position.y;
+}
+
+void Player::PlayerPart::change_position(int x, int y)
+{
+	Vector2 OutVector = { x,y };
+	OutVector = OutVector + get_position();
+	set_position(OutVector);
 }
