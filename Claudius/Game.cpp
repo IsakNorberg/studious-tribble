@@ -6,75 +6,67 @@ void Game::run()
 {
 	while (running)
 	{
-		SDL_Event e;
-		while (SDL_PollEvent(&e))
+		
+		while (SDL_PollEvent(&_event))
 		{
-			switch (e.type)
+			switch (_event.type)
 			{
 				case SDL_QUIT: running = false; break;
-				case SDL_KEYDOWN: OnKeyDown(TranslateKeyCode(e.key.keysym.sym)); break;
+				case SDL_KEYDOWN: OnKeyDown(TranslateKeyCode(_event.key.keysym.sym)); break;
 			}
 		}
 
 		Update();
-		Render(renderManager);
-		renderManager.render_buffer();
+		Render(_renderManager);
+		_renderManager.render_buffer();
 
 
 		SDL_Delay(1000 / 20); //<- "Framerate".
 	}
 }
-Game::Game()
-{
-}
-
-Game::~Game()
-{
-}
-
 
 void Game::Update()
 {
 	
-	playerOne.Update();
+	_playerOne.Update();
 
 	// Player colliding on theirself.
-	for (int i = 0; i < playerOne.player_score; i++)
+	for (int i = 0; i < _playerOne.player_score; i++)
 	{
-		if (playerOne.get_position() == playerOne.parts[i].get_position())
+		if (_playerOne.get_position() == _playerOne.parts[i].get_position())
 		{
-			playerOne.ResetPlayer();
+			_playerOne.ResetPlayer();
 		}
 	}
 
 	// Player going out of X bounds.
-	if (playerOne.get_position().x > DEFAULT_WIDTH || playerOne.get_position().x < 0)
+	if (_playerOne.get_position().x > DEFAULT_WIDTH || _playerOne.get_position().x < 0)
 	{
-		playerOne.ResetPlayer();
+		_playerOne.ResetPlayer();
 	}
 
 	// Player going out of Y bounds.
-	if (playerOne.get_position().y > DEFAULT_HEIGHT || playerOne.get_position().y < 0)
+	if (_playerOne.get_position().y > DEFAULT_HEIGHT || _playerOne.get_position().y < 0)
 	{
-		playerOne.ResetPlayer();
+		_playerOne.ResetPlayer();
 	}
 
 	// Player collide on apple.
-	if (playerOne.get_position() == apple.get_position())
+	if (_playerOne.get_position() == _apple.get_position())
 	{
-		playerOne.player_score++;
-		apple.set_position({ (rand() % 125) * 10, (rand() % 70) * 10 });
+		_playerOne.player_score++;
+		_apple.set_position({ (rand() % 125) * 10, (rand() % 70) * 10 });
 	}
 }
 
 void Game::Render(RenderManager& renderManager)
 {
-	playerOne.Render(renderManager);
-	apple.Render(renderManager);
+	_playerOne.Render(renderManager);
+	_apple.Render(renderManager);
 }
 
 void Game::OnKeyDown(KeyCode key)
 {
-	playerOne.OnKeyDown(key);
+	_playerOne.OnKeyDown(key);
 }
 

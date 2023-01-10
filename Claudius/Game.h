@@ -15,15 +15,13 @@
 
 class Game
 {
-	RenderManager renderManager;
-	Player playerOne;
-	Apple apple;
-
-	bool running = true;
+	RenderManager _renderManager;
+	Player _playerOne;
+	Apple _apple;
+	SDL_Event _event;
+	bool running{ true };
 public:
-	void run();
-	Game();
-	~Game(); 
+	void run(); 
 	void Update();
 	void Render(RenderManager& rendererManager);
 	void OnKeyDown(KeyCode key);
