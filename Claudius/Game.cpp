@@ -52,7 +52,7 @@ void Game::update()
 	bunds_check();
 	apple_collision();
 	// Player colliding on theirself.
-	for (int i = 0; i < _playerOne.player_score; i++)
+	for (int i = 1; i < _playerOne.player_score; i++)
 	{
 		if (_playerOne.get_head_position() == _playerOne.parts[i].get_position())
 		{

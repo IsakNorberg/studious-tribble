@@ -7,12 +7,11 @@
 void Player::move(Vector2 direction)
 {
 	//change_position(direction);
-	parts[0].change_position(direction);
-
-	for (int i = 2; i < player_size; i++)
+	for (int i = 1; i < player_score; i++) // borde gå baklänges
 	{
-		parts[i].change_position({ x_array_difference[i - 1], y_array_difference[i - 1] });
+		parts[i].set_position(parts[i-1].get_position());
 	}
+	parts[0].move_in_direction(direction);
 }
 
 void Player::Render(RenderManager& renderManager)
@@ -27,14 +26,7 @@ void Player::Render(RenderManager& renderManager)
 
 void Player::move(SDL_Keycode input) noexcept
 {
-	x_array_difference[1] = parts[0].get_position().x - parts[1].get_position().x;
-	y_array_difference[1] = parts[0].get_position().y - parts[1].get_position().y;
 
-	for (int i = 1; i < player_size - 1; i++)
-	{
-			x_array_difference[i] = parts[i].get_position().x - parts[i + 1].get_position().x;
-			y_array_difference[i] = parts[i].get_position().y - parts[i + 1].get_position().y;
-	}
 
 	switch (input)
 	{
@@ -81,7 +73,7 @@ void PlayerPart::set_position(Vector2 position)noexcept
 	_position = position;
 }
 
-void PlayerPart::change_position(Vector2 position)noexcept
+void PlayerPart::move_in_direction(Vector2 position)noexcept
 {
 	position = position + get_position();
 	set_position(position);

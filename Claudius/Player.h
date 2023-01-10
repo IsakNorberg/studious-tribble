@@ -18,28 +18,20 @@ class PlayerPart
 public:
 	Vector2 get_position()const noexcept;
 	void set_position(Vector2 position)noexcept;
-	void change_position(Vector2 position)noexcept; // rename
+	void move_in_direction(Vector2 position)noexcept; // rename
 
 };
 
 class Player final
 {
-	static const int player_size = 50;
 	void move(Vector2 direction);
-	Vector2 _position{ STARTING_POSITION };
-	SDL_Color _color{RED};
+	SDL_Color _head_color{RED};
 public:
-	PlayerPart parts[player_size];  // vector;
+	std::vector<PlayerPart> parts{PlayerPart()};  // vector;
 	void Render(RenderManager& renderManager);				
 	void move(SDL_Keycode input)noexcept;
 	void reset_player() noexcept;
 
 	Vector2 get_head_position()const noexcept;
 	void set_head_position(Vector2 position)noexcept;
-	//void change_position(Vector2 position)noexcept; //rename
-
-	int x_array_difference[player_size] = {};
-	int y_array_difference[player_size] = {};
-
-	int player_score{ 1 };
 };
