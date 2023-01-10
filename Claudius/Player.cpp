@@ -3,26 +3,14 @@
 #include "RenderManager.h"
 #include <iostream>
 
-void Player::Initialize()
-{
-	color = { 0,255,0,0 };
-	rect = { starting_x, starting_y, static_cast<int>(size), static_cast<int>(size) };
-	player_score = 0;
-
-	for (int i = 0; i < player_size; i++)
-	{
-		parts[i].color = color;
-		parts[i].rect = rect;
-	}
-}
 
 void Player::Render(RenderManager& renderManager)
 {
-	renderManager.add_to_render_buffer(rect, color);
+	renderManager.add_to_render_buffer(_position, _color);
 
 	for (int i = 0; i < player_score; i++)
 	{
-		renderManager.add_to_render_buffer(parts[i].rect, parts[i].color);
+		renderManager.add_to_render_buffer(parts[i]._position);
 	}
 }
 
@@ -39,7 +27,7 @@ void Player::Update()
 
 	if (moving_left == true)
 	{
-		change_position(-movement_speed, 0);
+		change_position(-MOVEMENT_SPEED, 0);
 		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
@@ -49,7 +37,7 @@ void Player::Update()
 	}
 	else if (moving_right == true)
 	{
-		change_position(movement_speed, 0);
+		change_position(MOVEMENT_SPEED, 0);
 		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
@@ -59,7 +47,7 @@ void Player::Update()
 	}
 	else if (moving_up == true)
 	{
-		change_position(0, -movement_speed);
+		change_position(0, -MOVEMENT_SPEED);
 		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
@@ -69,7 +57,7 @@ void Player::Update()
 	}
 	else if (moving_down == true)
 	{
-		change_position(0, movement_speed);
+		change_position(0, MOVEMENT_SPEED);
 		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
 		for (int i = 1; i < player_size; i++)
@@ -119,18 +107,17 @@ void Player::ResetPlayer()
 	moving_up = false;
 	moving_down = false;
 
-	set_position({ starting_x, starting_y });
+	set_position(STARTING_POSITION);
 }
 
 Vector2 Player::get_position()
 {
-	return {rect.x, rect.y};
+	return _position;
 }
 
 void Player::set_position(Vector2 position)
 {
-	rect.x = position.x;
-	rect.y = position.y;
+	_position = position;
 }
 
 void Player::change_position(int x, int y)
@@ -142,13 +129,12 @@ void Player::change_position(int x, int y)
 
 Vector2 Player::PlayerPart::get_position()
 {
-	return { rect.x, rect.y };
+	return _position;
 }
 
 void Player::PlayerPart::set_position(Vector2 position)
 {
-	rect.x = position.x;
-	rect.y = position.y;
+	_position = position;
 }
 
 void Player::PlayerPart::change_position(int x, int y)

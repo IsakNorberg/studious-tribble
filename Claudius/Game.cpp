@@ -26,7 +26,6 @@ void Game::run()
 }
 Game::Game()
 {
-	playerOne.Initialize();
 }
 
 Game::~Game()

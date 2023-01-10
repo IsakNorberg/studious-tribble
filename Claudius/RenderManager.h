@@ -5,19 +5,20 @@
 #include <ranges>
 #include <vector>
 #include <string_view>
+#include "Vector2.h"
 
-constexpr std::string_view name = "Snake";
+constexpr std::string_view NAME = "Snake";
+constexpr int WHITH = 10;
+constexpr int HEIGHT = 10;
+constexpr SDL_Color GREEN = { 0, 255, 0, 0 };
+
 
 class RenderManager
 {
-	Window _window;
-	Renderer _renderer;
+	Window _window{NAME};
+	Renderer _renderer{_window};
 
 public:
-	RenderManager();
 	void render_buffer() noexcept;
-	void add_to_render_buffer(SDL_Rect rect, SDL_Color color);
-	
-private:
-
+	void add_to_render_buffer(Vector2 position, SDL_Color color = GREEN);
 };

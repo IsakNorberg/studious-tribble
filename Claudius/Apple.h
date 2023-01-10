@@ -4,17 +4,15 @@
 #include "RenderManager.h"
 #include "Vector2.h"
 
-class Apple
+constexpr Vector2 START_POSITION = { 100,200 };
+
+class Apple 
 {
-	SDL_Rect rect;
-	SDL_Color color;
+	Vector2 _position{ START_POSITION };
 
 public:
-	Apple(unsigned int width, unsigned int height);
 	void Render(RenderManager& renderManager);
 	Vector2 get_position();
 	void set_position(Vector2 position);
-
-
 	bool new_apple{ false };
 };

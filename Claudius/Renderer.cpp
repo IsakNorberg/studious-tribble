@@ -1,23 +1,21 @@
 #include "Renderer.h"
 
-SDL_Renderer* Renderer::get_render_pointer()
+SDL_Renderer* Renderer::get_pointer() const noexcept
 {
 	return _renderer.get();
 }
 
-Renderer::Renderer(const Window& window)
-{
-	SDL_Renderer* ptr = SDL_CreateRenderer(window.getWindow(), -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
-	if (ptr == nullptr)
+Renderer::Renderer(const Window& window) {
+	_renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(SDL_CreateRenderer(window.get_pointer(), -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED));
+	if (_renderer == nullptr)
 	{
-		throw std::runtime_error(SDL_GetError());
+		throw std::runtime_error(SDL_GetError()); //TODO: consider custom exception class that builds the error message for you. 
 	}
-	_renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(ptr);
 }
 
 void Renderer::clear() const noexcept
 {
-	SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, ALPHA);
 	SDL_RenderClear(_renderer.get());
 }
 

@@ -10,9 +10,7 @@ constexpr int DEFAULT_HEIGHT = 700;
 class Window
 {
 	std::unique_ptr<SDL_Window, SDL_Deleter> _window;
-	void center_window() const noexcept;
 public:
-	void set_size(int width, int height) const noexcept;
 	Window(std::string_view title);
-	SDL_Window* getWindow() const noexcept;
+	SDL_Window* get_pointer() const noexcept;
 };

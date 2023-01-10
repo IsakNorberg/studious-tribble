@@ -13,13 +13,11 @@
 #include "RenderManager.h"
 
 
-
-
 class Game
 {
 	RenderManager renderManager;
 	Player playerOne;
-	Apple apple{10,10};
+	Apple apple;
 
 	bool running = true;
 public:
