@@ -4,142 +4,85 @@
 #include <iostream>
 
 
-void Player::Render(RenderManager& renderManager)
+void Player::move(Vector2 direction)
 {
-	renderManager.add_to_render_buffer(_position, _color);
+	//change_position(direction);
+	parts[0].change_position(direction);
 
-	for (int i = 0; i < player_score; i++)
+	for (int i = 2; i < player_size; i++)
 	{
-		renderManager.add_to_render_buffer(parts[i]._position);
+		parts[i].change_position({ x_array_difference[i - 1], y_array_difference[i - 1] });
 	}
 }
 
-void Player::Update()
+void Player::Render(RenderManager& renderManager)
 {
-	x_array_difference[0] = get_position().x - parts[0].get_position().x;
-	y_array_difference[0] = get_position().y - parts[0].get_position().y;
+	//renderManager.add_to_render_buffer(_position, _color);
 
-	for (int i = 1; i < (player_size - 1); i++)
+	for (int i = 0; i < player_score; i++)
+	{
+		renderManager.add_to_render_buffer(parts[i].get_position());
+	}
+}
+
+void Player::move(SDL_Keycode input) noexcept
+{
+	x_array_difference[1] = parts[0].get_position().x - parts[1].get_position().x;
+	y_array_difference[1] = parts[0].get_position().y - parts[1].get_position().y;
+
+	for (int i = 1; i < player_size - 1; i++)
 	{
 			x_array_difference[i] = parts[i].get_position().x - parts[i + 1].get_position().x;
 			y_array_difference[i] = parts[i].get_position().y - parts[i + 1].get_position().y;
 	}
 
-	if (moving_left == true)
+	switch (input)
 	{
-		change_position(-MOVEMENT_SPEED, 0);
-		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
-
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
+		case SDLK_UP: move(UP); break;
+		case SDLK_DOWN: move(DOWN); break;
+		case SDLK_LEFT: move(LEFT); break;
+		case SDLK_RIGHT: move(RIGHT); break;
+		default: return; break;
 	}
-	else if (moving_right == true)
-	{
-		change_position(MOVEMENT_SPEED, 0);
-		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
 
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
-	}
-	else if (moving_up == true)
-	{
-		change_position(0, -MOVEMENT_SPEED);
-		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
-
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
-	}
-	else if (moving_down == true)
-	{
-		change_position(0, MOVEMENT_SPEED);
-		parts[0].change_position(x_array_difference[0], y_array_difference[0]);
-
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].change_position(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
-	}
 }
 
-void Player::OnKeyDown(KeyCode key)
+
+void Player::reset_player() noexcept
 {
-	if (key == KeyCode::LEFT_ARROW)
-	{
-		moving_left = true;
-		moving_right = false;
-		moving_up = false;
-		moving_down = false;
-	}
-	else if (key == KeyCode::RIGHT_ARROW)
-	{
-		moving_left = false;
-		moving_right = true;
-		moving_up = false;
-		moving_down = false;
-	}
-	else if (key == KeyCode::UP_ARROW)
-	{
-		moving_left = false;
-		moving_right = false;
-		moving_up = true;
-		moving_down = false;
-	}
-	else if (key == KeyCode::DOWN_ARROW)
-	{
-		moving_left = false;
-		moving_right = false;
-		moving_up = false;
-		moving_down = true;
-	}
+	player_score = 1;
+
+	set_head_position(STARTING_POSITION);
 }
 
-void Player::ResetPlayer()
+Vector2 Player::get_head_position() const noexcept
 {
-	player_score = 0;
-	moving_right = false;
-	moving_left = false;
-	moving_up = false;
-	moving_down = false;
-
-	set_position(STARTING_POSITION);
+	return parts[0].get_position();
 }
 
-Vector2 Player::get_position()
+void Player::set_head_position(Vector2 position)noexcept
+{
+	parts[0].set_position(position);
+}
+
+//void Player::change_position(Vector2 position)noexcept
+//{
+//	position = position + get_position();
+//	set_position(position);
+//}
+
+Vector2 PlayerPart::get_position()const noexcept
 {
 	return _position;
 }
 
-void Player::set_position(Vector2 position)
+void PlayerPart::set_position(Vector2 position)noexcept
 {
 	_position = position;
 }
 
-void Player::change_position(int x, int y)
+void PlayerPart::change_position(Vector2 position)noexcept
 {
-	Vector2 OutVector = { x,y };
-	OutVector = OutVector + get_position();
-	set_position(OutVector);
-}
-
-Vector2 Player::PlayerPart::get_position()
-{
-	return _position;
-}
-
-void Player::PlayerPart::set_position(Vector2 position)
-{
-	_position = position;
-}
-
-void Player::PlayerPart::change_position(int x, int y)
-{
-	Vector2 OutVector = { x,y };
-	OutVector = OutVector + get_position();
-	set_position(OutVector);
+	position = position + get_position();
+	set_position(position);
 }

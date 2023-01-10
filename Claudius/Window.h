@@ -7,7 +7,7 @@
 constexpr int DEFAULT_WIDTH = 1250;
 constexpr int DEFAULT_HEIGHT = 700;
 
-class Window
+class Window final
 {
 	std::unique_ptr<SDL_Window, SDL_Deleter> _window;
 public:

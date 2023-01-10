@@ -15,7 +15,7 @@ Renderer::Renderer(const Window& window) {
 
 void Renderer::clear() const noexcept
 {
-	SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, ALPHA);
+	SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, MAX_ALPHA);
 	SDL_RenderClear(_renderer.get());
 }
 

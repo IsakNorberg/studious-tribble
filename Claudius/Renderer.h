@@ -3,8 +3,9 @@
 #include <memory>
 #include "Window.h"
 
-constexpr int ALPHA = 255;
-class Renderer
+constexpr int MAX_ALPHA = 255;
+
+class Renderer final
 {
 	
 public:

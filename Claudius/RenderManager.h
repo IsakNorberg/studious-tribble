@@ -13,7 +13,7 @@ constexpr int HEIGHT = 10;
 constexpr SDL_Color GREEN = { 0, 255, 0, 0 };
 
 
-class RenderManager
+class RenderManager final
 {
 	Window _window{NAME};
 	Renderer _renderer{_window};

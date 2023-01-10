@@ -6,7 +6,7 @@
 
 constexpr Vector2 START_POSITION = { 100,200 };
 
-class Apple 
+class Apple final
 {
 	Vector2 _position{ START_POSITION };
 
