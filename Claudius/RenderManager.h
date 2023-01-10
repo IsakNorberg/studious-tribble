@@ -20,5 +20,5 @@ class RenderManager
 
 public:
 	void render_buffer() noexcept;
-	void add_to_render_buffer(Vector2 position, SDL_Color color = GREEN);
+	void add_to_render_buffer(Vector2 position, SDL_Color color = GREEN)const noexcept;
 };
