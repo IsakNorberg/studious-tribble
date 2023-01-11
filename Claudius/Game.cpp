@@ -22,53 +22,42 @@ void Game::poll_events()
 		switch (_event.type)
 		{
 			case SDL_QUIT: running = false; break;
-			case SDL_KEYDOWN: set_last_input(_event.key.keysym.sym); break;
+			case SDL_KEYDOWN: _player.set_last_input(_event.key.keysym.sym); break;
 			default: continue; break;
 		}
 	}
 }
 
-void Game::apple_collision()
+void Game::apple_collision(Player& player)
 {
-	if (_playerOne.get_head_position() == _apple.get_position())
+	if (player.get_head_position() == _apple.get_position())
 	{
-		_apple.set_position({ (rand() % 125) * 10, (rand() % 70) * 10 });
+		_apple.set_position(get_random_grid());
+		player.add_part();
 	}
 }
 
-void Game::bunds_check()
+void Game::check_if_player_is_in_bunds(Player& player)
 {
-	if (_playerOne.get_head_position().x > DEFAULT_WIDTH || _playerOne.get_head_position().x < 0||
-		_playerOne.get_head_position().y > DEFAULT_HEIGHT || _playerOne.get_head_position().y < 0)
+	Vector2 position = player.get_head_position();
+	if (position.x > DEFAULT_WIDTH || position.x < 0||
+		position.y > DEFAULT_HEIGHT || position.y < 0)
 	{
-		_lastInput = {};
-		_playerOne.reset();
+		player.reset();
 	}
 }
 
 void Game::update()
 {
-	_playerOne.update(_lastInput);
-	bunds_check();
-	apple_collision();
+	_player.update();
+	check_if_player_is_in_bunds(_player);
+	apple_collision(_player);
 }
 
 void Game::render(RenderManager& renderManager)
 {
-	_playerOne.render(renderManager);
+	_player.render(renderManager);
 	_apple.Render(renderManager);
-}
-
-void Game::set_last_input(SDL_Keycode key)
-{
-	switch (key)
-	{
-		case SDLK_UP: _lastInput = key; break;
-		case SDLK_DOWN: _lastInput = key; break;
-		case SDLK_LEFT: _lastInput = key; break;
-		case SDLK_RIGHT: _lastInput = key; break;
-		default: return; break;
-	}
 }
 
 void Game::seed_random()
@@ -76,3 +65,7 @@ void Game::seed_random()
 	srand(static_cast<int>(time(nullptr)));
 }
 
+Vector2 get_random_grid() noexcept
+{
+	return { (rand() % 125) * 10, (rand() % 70) * 10 };
+}

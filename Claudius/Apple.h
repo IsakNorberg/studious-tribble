@@ -1,6 +1,5 @@
 #pragma once
 
-#include "KeyCode.h"
 #include "RenderManager.h"
 #include "Vector2.h"
 
@@ -12,7 +11,7 @@ class Apple final
 
 public:
 	void Render(RenderManager& renderManager);
-	Vector2 get_position();
-	void set_position(Vector2 position);
+	Vector2 get_position()const noexcept;
+	void set_position(Vector2 position) noexcept;
 	bool new_apple{ false };
 };

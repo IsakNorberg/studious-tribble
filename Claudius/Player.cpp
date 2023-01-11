@@ -28,20 +28,31 @@ void Player::collides_with_self() noexcept
 	};
 }
 
+void Player::set_last_input(SDL_Keycode key)
+{
+	switch (key)
+	{
+		case SDLK_UP: _lastInput = key; break;
+		case SDLK_DOWN: _lastInput = key; break;
+		case SDLK_LEFT: _lastInput = key; break;
+		case SDLK_RIGHT: _lastInput = key; break;
+		default: return; break;
+	}
+}
+
 void Player::render(RenderManager& renderManager)
 {
-	
 	for (PlayerPart& part : parts)
 	{
 		renderManager.add_to_render_buffer(part.get_position());
 	}
-	renderManager.add_to_render_buffer(parts[0].get_position(), HEAD_COLOR);
+	renderManager.add_to_render_buffer(parts[0].get_position(), RED);
 }
 
-void Player::update(SDL_Keycode input) noexcept
+void Player::update() noexcept
 {
 	collides_with_self();
-	switch (input)
+	switch (_lastInput)
 	{
 		case SDLK_UP: move(UP); break;
 		case SDLK_DOWN: move(DOWN); break;
@@ -54,7 +65,14 @@ void Player::update(SDL_Keycode input) noexcept
 
 void Player::reset() noexcept
 {
+	_lastInput = {};
+	parts.reserve(1);
 	set_head_position(STARTING_POSITION);
+}
+
+void Player::add_part() noexcept
+{
+	parts.push_back(PlayerPart());
 }
 
 Vector2 Player::get_head_position() const noexcept
