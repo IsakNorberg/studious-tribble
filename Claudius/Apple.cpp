@@ -1,8 +1,4 @@
-#pragma once
-
-#include <iostream>
 #include "Apple.h"
-#include "RenderManager.h"
 
 void Apple::Render(RenderManager& renderManager)
 {

@@ -1,7 +1,5 @@
-// 2019-12-05 Teemu Laiho
-
 #include "Game.h"
-#include <iostream>
+
 void Game::run()
 {
 	seed_random();
