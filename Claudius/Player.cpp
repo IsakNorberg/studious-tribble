@@ -2,7 +2,6 @@
 
 void Player::move(Vector2 direction) noexcept
 {
-	
 	for (PlayerPart& part: parts| std::views::reverse)
 	{
 		if (part.get_position() == parts[0].get_position())
@@ -22,7 +21,7 @@ void Player::collides_with_self() noexcept
 		auto p = get_head_position();
 		return part.get_position() == p;
 	});
-	if (result != parts.end())
+	if (result != parts.end()) [[unlikely]]
 	{
 		reset();
 	};
@@ -36,7 +35,7 @@ void Player::set_last_input(SDL_Keycode key) noexcept
 		case SDLK_DOWN: _lastInput = key; break;
 		case SDLK_LEFT: _lastInput = key; break;
 		case SDLK_RIGHT: _lastInput = key; break;
-		default: return; break;
+		[[unlikely]] default: return; break;
 	}
 }
 
@@ -58,10 +57,9 @@ void Player::update() noexcept
 		case SDLK_DOWN: move(DOWN); break;
 		case SDLK_LEFT: move(LEFT); break;
 		case SDLK_RIGHT: move(RIGHT); break;
-		default: return; break;
+		[[unlikely]] default: return; break;
 	}
 }
-
 
 void Player::reset() noexcept
 {

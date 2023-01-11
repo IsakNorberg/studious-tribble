@@ -25,6 +25,8 @@
  *  This is a general header that includes C language support.
  */
 
+#pragma warning(disable:26819) // the warnings are from is the sdl library
+
 #ifndef SDL_stdinc_h_
 #define SDL_stdinc_h_
 

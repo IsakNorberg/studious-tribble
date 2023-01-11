@@ -27,4 +27,4 @@ public:
 	void run(); 
 };
 void seed_random() noexcept;
-bool check_if_in_bunds(Vector2 position) noexcept;
+[[nodiscard]] bool check_if_in_bunds(Vector2 position) noexcept;

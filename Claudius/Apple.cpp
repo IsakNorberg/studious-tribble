@@ -15,9 +15,9 @@ void Apple::set_position(Vector2 position) noexcept
 	_position = position;
 }
 
-bool Apple::collision(Vector2 position) noexcept
+[[nodiscard]] bool Apple::collision(Vector2 position) noexcept
 {
-	if (position ==_position)
+	if (position ==_position) [[unlikely]]
 	{
 		set_position(get_random_grid());
 		return true;

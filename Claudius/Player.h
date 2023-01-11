@@ -4,10 +4,10 @@
 #include "Vector2.h"
 #include <ranges>
 
+
 constexpr int MOVEMENT_SPEED = 10;
 constexpr Vector2 STARTING_POSITION = {300, 300};
 constexpr SDL_Color RED = { 255,0,0,0 };
-
 constexpr Vector2 UP = {0,-MOVEMENT_SPEED};
 constexpr Vector2 DOWN = { 0,MOVEMENT_SPEED };
 constexpr Vector2 RIGHT = { MOVEMENT_SPEED, 0 };
@@ -20,7 +20,6 @@ public:
 	Vector2 get_position()const noexcept;
 	void set_position(Vector2 position)noexcept;
 	void move_in_direction(Vector2 direction)noexcept;
-
 };
 
 class Player final
