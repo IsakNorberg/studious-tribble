@@ -19,7 +19,7 @@ class Game final
 	RenderManager _renderManager;
 	Player _playerOne;
 	Apple _apple;
-	SDL_Event _event;
+	SDL_Event _event{};
 
 	SDL_Keycode _lastInput{};
 	bool running{ true };
@@ -29,6 +29,7 @@ class Game final
 	void update();
 	void render(RenderManager& rendererManager);
 	void set_last_input(SDL_Keycode key);
+	void seed_random();
 public:
 	void run(); 
 };

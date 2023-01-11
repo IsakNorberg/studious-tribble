@@ -1,33 +1,46 @@
 #include "Player.h"
-#include <cmath>
-#include "RenderManager.h"
-#include <iostream>
-
 
 void Player::move(Vector2 direction)
 {
-	//change_position(direction);
-	for (int i = 1; i < player_score; i++) // borde gå baklänges
-	{
-		parts[i].set_position(parts[i-1].get_position());
-	}
 	parts[0].move_in_direction(direction);
-}
-
-void Player::Render(RenderManager& renderManager)
-{
-	//renderManager.add_to_render_buffer(_position, _color);
-
-	for (int i = 0; i < player_score; i++)
+	for (PlayerPart& part: parts| std::views::reverse)
 	{
-		renderManager.add_to_render_buffer(parts[i].get_position());
+		if (part.get_position() == parts[0].get_position())
+		{
+			return;
+		}
+		part.set_position((&part - 1)->get_position());
 	}
 }
 
-void Player::move(SDL_Keycode input) noexcept
+void Player::collides_with_self() noexcept
 {
+	using reverse_iterator = std::vector<PlayerPart>::reverse_iterator;
+	reverse_iterator head(parts.begin());
+	reverse_iterator end(parts.end());
+	auto result = std::find_if(end, head, [&](PlayerPart part)
+	{
+		return part.get_position() == get_head_position();
+	});
+	if (result != head)
+	{
+		reset();
+	};
+}
 
+void Player::render(RenderManager& renderManager)
+{
+	
+	for (PlayerPart& part : parts)
+	{
+		renderManager.add_to_render_buffer(part.get_position());
+	}
+	renderManager.add_to_render_buffer(parts[0].get_position(), HEAD_COLOR);
+}
 
+void Player::update(SDL_Keycode input) noexcept
+{
+	collides_with_self();
 	switch (input)
 	{
 		case SDLK_UP: move(UP); break;
@@ -36,14 +49,11 @@ void Player::move(SDL_Keycode input) noexcept
 		case SDLK_RIGHT: move(RIGHT); break;
 		default: return; break;
 	}
-
 }
 
 
-void Player::reset_player() noexcept
+void Player::reset() noexcept
 {
-	player_score = 1;
-
 	set_head_position(STARTING_POSITION);
 }
 
@@ -57,11 +67,6 @@ void Player::set_head_position(Vector2 position)noexcept
 	parts[0].set_position(position);
 }
 
-//void Player::change_position(Vector2 position)noexcept
-//{
-//	position = position + get_position();
-//	set_position(position);
-//}
 
 Vector2 PlayerPart::get_position()const noexcept
 {
