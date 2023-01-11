@@ -2,27 +2,27 @@
 
 void Player::move(Vector2 direction)
 {
-	parts[0].move_in_direction(direction);
+	
 	for (PlayerPart& part: parts| std::views::reverse)
 	{
 		if (part.get_position() == parts[0].get_position())
 		{
-			return;
+			continue;
 		}
 		part.set_position((&part - 1)->get_position());
 	}
+	parts[0].move_in_direction(direction);
 }
 
 void Player::collides_with_self() noexcept
 {
-	using reverse_iterator = std::vector<PlayerPart>::reverse_iterator;
-	reverse_iterator head(parts.begin());
-	reverse_iterator end(parts.end());
-	auto result = std::find_if(end, head, [&](PlayerPart part)
+	auto start = parts.begin() + 1;
+	auto result = std::find_if(start, parts.end(), [&](PlayerPart part)
 	{
-		return part.get_position() == get_head_position();
+		auto p = get_head_position();
+		return part.get_position() == p;
 	});
-	if (result != head)
+	if (result != parts.end()) /// konstig
 	{
 		reset();
 	};
@@ -66,7 +66,7 @@ void Player::update() noexcept
 void Player::reset() noexcept
 {
 	_lastInput = {};
-	parts.reserve(1);
+	parts.resize(1);
 	set_head_position(STARTING_POSITION);
 }
 
