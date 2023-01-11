@@ -9,9 +9,6 @@
 #include "RenderManager.h"
 
 constexpr Uint32 DELAY = 1000 / 20;
-constexpr int GRID_AMUNT_Y = 70;
-constexpr int GRID_AMUNT_X = 125;
-constexpr int GRID_SIZE = 10;
 
 class Game final
 {
@@ -20,16 +17,14 @@ class Game final
 	Apple _apple;
 	SDL_Event _event{};
 
-	
 	bool running{ true };
-	void poll_events();
-	void apple_collision(Player& player);
-	void check_if_player_is_in_bunds(Player& player);
-	void update();
+	void poll_events() noexcept;
+	void update() noexcept;
 	void render(RenderManager& rendererManager);
+	void collision() noexcept;
 
-	void seed_random();
 public:
 	void run(); 
 };
-Vector2 get_random_grid() noexcept;
+void seed_random() noexcept;
+bool check_if_in_bunds(Vector2 position) noexcept;

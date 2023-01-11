@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::move(Vector2 direction)
+void Player::move(Vector2 direction) noexcept
 {
 	
 	for (PlayerPart& part: parts| std::views::reverse)
@@ -22,13 +22,13 @@ void Player::collides_with_self() noexcept
 		auto p = get_head_position();
 		return part.get_position() == p;
 	});
-	if (result != parts.end()) /// konstig
+	if (result != parts.end())
 	{
 		reset();
 	};
 }
 
-void Player::set_last_input(SDL_Keycode key)
+void Player::set_last_input(SDL_Keycode key) noexcept
 {
 	switch (key)
 	{

@@ -15,7 +15,7 @@ void Game::run()
 	}
 }
 
-void Game::poll_events()
+void Game::poll_events() noexcept
 {
 	while (SDL_PollEvent(&_event))
 	{
@@ -28,30 +28,10 @@ void Game::poll_events()
 	}
 }
 
-void Game::apple_collision(Player& player)
-{
-	if (player.get_head_position() == _apple.get_position())
-	{
-		_apple.set_position(get_random_grid());
-		player.add_part();
-	}
-}
-
-void Game::check_if_player_is_in_bunds(Player& player)
-{
-	Vector2 position = player.get_head_position();
-	if (position.x > DEFAULT_WIDTH || position.x < 0||
-		position.y > DEFAULT_HEIGHT || position.y < 0)
-	{
-		player.reset();
-	}
-}
-
-void Game::update()
+void Game::update() noexcept
 {
 	_player.update();
-	check_if_player_is_in_bunds(_player);
-	apple_collision(_player);
+	collision();
 }
 
 void Game::render(RenderManager& renderManager)
@@ -60,12 +40,28 @@ void Game::render(RenderManager& renderManager)
 	_apple.Render(renderManager);
 }
 
-void Game::seed_random()
+void Game::collision() noexcept
+{
+	if (!check_if_in_bunds(_player.get_head_position()))
+	{
+		_player.reset();
+	};                
+	if (_apple.collision(_player.get_head_position()))
+	{
+		_player.add_part();
+	}
+}
+void seed_random() noexcept
 {
 	srand(static_cast<int>(time(nullptr)));
 }
 
-Vector2 get_random_grid() noexcept
+bool check_if_in_bunds(Vector2 position) noexcept
 {
-	return { (rand() % GRID_AMUNT_X) * GRID_SIZE, (rand() % GRID_AMUNT_Y) * GRID_SIZE };
+	if (position.x > DEFAULT_WIDTH || position.x < 0 ||
+		position.y > DEFAULT_HEIGHT || position.y < 0)
+	{
+		return false;
+	}
+	return true;
 }

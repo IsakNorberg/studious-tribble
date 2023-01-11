@@ -25,14 +25,14 @@ public:
 
 class Player final
 {
-	void move(Vector2 direction);
+	void move(Vector2 direction) noexcept;
 	void collides_with_self() noexcept;
 	std::vector<PlayerPart> parts{ PlayerPart() };
 	SDL_Keycode _lastInput{};
 public:
-	void set_last_input(SDL_Keycode key);
+	void set_last_input(SDL_Keycode key) noexcept;
 	void render(RenderManager& renderManager);				
-	void update()noexcept;
+	void update() noexcept;
 	void reset() noexcept;
 	void add_part() noexcept;
 
