@@ -4,7 +4,7 @@
 #include "Vector2.h"
 #include <ranges>
 
-constexpr float MOVEMENT_SPEED = 10.0f;
+constexpr int MOVEMENT_SPEED = 10;
 constexpr Vector2 STARTING_POSITION = {300, 300};
 constexpr SDL_Color RED = { 255,0,0,0 };
 
