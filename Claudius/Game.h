@@ -9,6 +9,9 @@
 #include "RenderManager.h"
 
 constexpr Uint32 DELAY = 1000 / 20;
+constexpr int GRID_AMUNT_Y = 70;
+constexpr int GRID_AMUNT_X = 125;
+constexpr int GRID_SIZE = 10;
 
 class Game final
 {

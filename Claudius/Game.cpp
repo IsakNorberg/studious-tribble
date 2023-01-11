@@ -67,5 +67,5 @@ void Game::seed_random()
 
 Vector2 get_random_grid() noexcept
 {
-	return { (rand() % 125) * 10, (rand() % 70) * 10 };
+	return { (rand() % GRID_AMUNT_X) * GRID_SIZE, (rand() % GRID_AMUNT_Y) * GRID_SIZE };
 }
