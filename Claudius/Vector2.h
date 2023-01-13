@@ -12,6 +12,6 @@ struct Vector2 final
 	Vector2 operator/(const Vector2& rhs) const noexcept;
 	Vector2 operator*(const int rhs) const noexcept;
 	Vector2 operator/(const int rhs) const noexcept;
+	Vector2& operator+=(const Vector2& rhs);
 	bool operator==(const Vector2& rhs) const noexcept;
-
 };

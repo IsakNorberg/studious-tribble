@@ -2,10 +2,7 @@
 #include "Deleter.h"
 #include <memory>
 #include <string_view>
-#include <stdexcept>
-
-constexpr int DEFAULT_WIDTH = 1250;
-constexpr int DEFAULT_HEIGHT = 700;
+#include "Settings.h"
 
 class Window final
 {

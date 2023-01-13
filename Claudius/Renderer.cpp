@@ -9,7 +9,7 @@ Renderer::Renderer(const Window& window) {
 	_renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(SDL_CreateRenderer(window.get_pointer(), -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED));
 	if (_renderer == nullptr) [[unlikely]]
 	{
-		throw std::runtime_error(SDL_GetError());
+		throw SDLError();
 	}
 }
 

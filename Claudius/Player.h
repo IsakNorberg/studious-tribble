@@ -1,36 +1,24 @@
 #pragma once		
+#include "Settings.h"
 
 #include "RenderManager.h"
 #include "Vector2.h"
 #include <ranges>
 
 
-constexpr int MOVEMENT_SPEED = 10;
-constexpr Vector2 STARTING_POSITION = {300, 300};
-constexpr SDL_Color RED = { 255,0,0,0 };
-constexpr Vector2 UP = {0,-MOVEMENT_SPEED};
-constexpr Vector2 DOWN = { 0,MOVEMENT_SPEED };
-constexpr Vector2 RIGHT = { MOVEMENT_SPEED, 0 };
-constexpr Vector2 LEFT = { -MOVEMENT_SPEED, 0 };
 
-class PlayerPart final
-{
-	Vector2 _position{ STARTING_POSITION };
-public:
-	Vector2 get_position()const noexcept;
-	void set_position(Vector2 position)noexcept;
-	void move_in_direction(Vector2 direction)noexcept;
-};
+using PlayerPart = Vector2;
 
 class Player final
 {
 	void move(Vector2 direction) noexcept;
-	void collides_with_self() noexcept;
-	std::vector<PlayerPart> parts{ PlayerPart() };
-	SDL_Keycode _lastInput{};
+	std::vector<PlayerPart> parts{ PlayerPart({ STARTING_POSITION }) };
+	
+	Vector2 _direction{};
 public:
+	bool collides_with_self() const noexcept;
 	void set_last_input(SDL_Keycode key) noexcept;
-	void render(RenderManager& renderManager);				
+	void render(const RenderManager& r) const;				
 	void update() noexcept;
 	void reset() noexcept;
 	void add_part() noexcept;

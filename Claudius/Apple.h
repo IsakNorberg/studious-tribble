@@ -1,16 +1,14 @@
 #pragma once
+#include "Settings.h"
 
 #include "RenderManager.h"
 #include "Vector2.h"
 
-constexpr Vector2 START_POSITION = { 100,200 };
-constexpr int GRID_AMUNT_Y = 70;
-constexpr int GRID_AMUNT_X = 125;
-constexpr int GRID_SIZE = 10;
+
 
 class Apple final
 {
-	Vector2 _position{ START_POSITION };
+	Vector2 _position{ APPLE_START_POSITION };
 public:
 	void Render(RenderManager& renderManager);
 	Vector2 get_position()const noexcept;

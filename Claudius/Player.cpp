@@ -1,69 +1,64 @@
 #include "Player.h"
 
+
 void Player::move(Vector2 direction) noexcept
 {
 	for (PlayerPart& part: parts| std::views::reverse)
-	{
-		if (part.get_position() == parts[0].get_position())
+	{		
+		if (part == get_head_position())
 		{
 			continue;
 		}
-		part.set_position((&part - 1)->get_position());
+		part = *(&part - 1);
 	}
-	parts[0].move_in_direction(direction);
+	parts[0] += direction; // parts[0] is the head
 }
 
-void Player::collides_with_self() noexcept
+bool Player::collides_with_self() const noexcept
 {
 	auto start = parts.begin() + 1;
-	auto result = std::find_if(start, parts.end(), [&](PlayerPart part)
-	{
-		auto p = get_head_position();
-		return part.get_position() == p;
+	const auto pos = get_head_position();
+	auto result = std::find_if(start, parts.end(), [pos](PlayerPart part)
+	{		
+		return part == pos;
 	});
 	if (result != parts.end()) [[unlikely]]
 	{
-		reset();
+		return true;
 	};
+	return false;
 }
 
 void Player::set_last_input(SDL_Keycode key) noexcept
 {
 	switch (key)
 	{
-		case SDLK_UP: _lastInput = key; break;
-		case SDLK_DOWN: _lastInput = key; break;
-		case SDLK_LEFT: _lastInput = key; break;
-		case SDLK_RIGHT: _lastInput = key; break;
+		case SDLK_UP: _direction =UP; break;
+		case SDLK_DOWN: _direction = DOWN; break;
+		case SDLK_LEFT: _direction = LEFT; break;
+		case SDLK_RIGHT: _direction = RIGHT; break;
 		[[unlikely]] default: return; break;
 	}
 }
 
-void Player::render(RenderManager& renderManager)
+void Player::render(const RenderManager& r) const
 {
-	for (PlayerPart& part : parts)
+	for (const auto& part : parts)
 	{
-		renderManager.add_to_render_buffer(part.get_position());
+		r.draw(part);
 	}
-	renderManager.add_to_render_buffer(parts[0].get_position(), RED);
+	r.draw(parts[0], RED);
 }
 
 void Player::update() noexcept
 {
-	collides_with_self();
-	switch (_lastInput)
-	{
-		case SDLK_UP: move(UP); break;
-		case SDLK_DOWN: move(DOWN); break;
-		case SDLK_LEFT: move(LEFT); break;
-		case SDLK_RIGHT: move(RIGHT); break;
-		[[unlikely]] default: return; break;
-	}
+	collides_with_self();	
+	move(_direction);
 }
 
 void Player::reset() noexcept
 {
-	_lastInput = {};
+	_direction = {};
 	parts.resize(1);
 	set_head_position(STARTING_POSITION);
 }
@@ -75,27 +70,10 @@ void Player::add_part() noexcept
 
 Vector2 Player::get_head_position() const noexcept
 {
-	return parts[0].get_position();
+	return parts[0];
 }
 
 void Player::set_head_position(Vector2 position)noexcept
 {
-	parts[0].set_position(position);
-}
-
-
-Vector2 PlayerPart::get_position()const noexcept
-{
-	return _position;
-}
-
-void PlayerPart::set_position(Vector2 position)noexcept
-{
-	_position = position;
-}
-
-void PlayerPart::move_in_direction(Vector2 position)noexcept
-{
-	position = position + get_position();
-	set_position(position);
+	parts[0] = position;
 }

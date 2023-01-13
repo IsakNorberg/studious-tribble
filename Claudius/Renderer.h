@@ -1,10 +1,8 @@
 #pragma once
+
 #include "SDL.h"
 #include "Window.h"
 #include <memory>
-
-
-constexpr int MAX_ALPHA = 255;
 
 class Renderer final
 {

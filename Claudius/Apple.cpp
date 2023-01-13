@@ -2,7 +2,7 @@
 
 void Apple::Render(RenderManager& renderManager)
 {
-	renderManager.add_to_render_buffer(_position);
+	renderManager.draw(_position);
 }
 
 Vector2 Apple::get_position() const noexcept
